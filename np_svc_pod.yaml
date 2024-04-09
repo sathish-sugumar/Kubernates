@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  clusterIP: 10.110.17.236
+  selector:
+    app: httpd
+  type: NodePort 
+  ports:
+  - port: 80
+  
+    targetPort: 8080
+    nodePort: 32010
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-service-pod
+  labels :
+      app: httpd  
+spec:
+  containers:
+  - name: my-pod-cont1
+    image: httpd
+    ports:
+      - containerPort: 80
+
+
+  - name: my-pod-cont2
+    image: jenkins/jenkins:lts
+    ports:
+      - containerPort: 8080
+    
+
+
+
+
+
